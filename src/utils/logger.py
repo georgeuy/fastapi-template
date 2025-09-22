@@ -4,8 +4,16 @@ import sys
 from logging.handlers import RotatingFileHandler
 
 
+_logging_configured = False
+
+
 def setup_logging():
-    """Configure application logging"""
+    """Configure application logging (runs only once)"""
+
+    global _logging_configured
+
+    if _logging_configured:
+        return
 
     # Create logs directory if it doesn't exist
     os.makedirs("logs", exist_ok=True)
@@ -30,3 +38,5 @@ def setup_logging():
     # set specific levels for libraries
     logging.getLogger("uvicorn").setLevel(logging.WARNING)
     logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
+
+    _logging_configured = True
