@@ -25,10 +25,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator:
     logger.info("Starting app...")
 
     # Create database tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    # async with engine.begin() as conn:
+    #    await conn.run_sync(Base.metadata.create_all)
+    # logger.info("Database tables created successfully")
 
-    logger.info("Database tables created successfully")
     logger.info(f"Docs: http://{settings.HOST}:{settings.PORT}{settings.DOCS_URL}")
 
     yield  # App run here

@@ -33,6 +33,12 @@ class Settings(BaseSettings):
         default="sqlite+aiosqlite:///./app.db", env="DATABASE_URL"
     )
 
+    # URL sync para Alembic (sin aiosqlite)
+    @property
+    def DATABASE_URL_SYNC(self) -> str:
+        """URL de base de datos sync para Alembic"""
+        return self.DATABASE_URL.replace("+aiosqlite", "")
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
